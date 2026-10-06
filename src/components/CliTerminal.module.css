@@ -1,0 +1,122 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: fadeIn 0.15s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.window {
+  width: 100%;
+  max-width: 680px;
+  max-height: 70vh;
+  background: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.7), 0 0 120px -30px rgba(63, 185, 80, 0.18);
+  display: flex;
+  flex-direction: column;
+  animation: slideUp 0.18s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(12px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.titlebar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: #161b22;
+  border-bottom: 1px solid #30363d;
+  flex-shrink: 0;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  flex-shrink: 0;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.25), inset 0 -1px 1px rgba(0, 0, 0, 0.25);
+}
+
+.title {
+  color: #8b949e;
+  font-size: 12px;
+  margin-left: 8px;
+  flex: 1;
+}
+
+.kbd {
+  color: #30363d;
+  font-size: 11px;
+}
+
+.body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.line {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  min-height: 20px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #8b949e;
+}
+
+/* output types */
+.t_info { color: #c9d1d9; }
+.t_grn  { color: #3fb950; }
+.t_err  { color: #f85149; }
+.t_cmd  { color: #58a6ff; }
+
+.ps1 {
+  color: #3fb950;
+  font-weight: 600;
+  flex-shrink: 0;
+  margin-right: 6px;
+  white-space: nowrap;
+}
+
+.lineCmd {
+  color: #58a6ff;
+}
+
+.input {
+  background: none;
+  border: none;
+  outline: none;
+  color: #58a6ff;
+  font-family: inherit;
+  font-size: 13px;
+  flex: 1;
+  caret-color: #3fb950;
+  min-width: 0;
+}
+
+/* Scrollbar */
+.body::-webkit-scrollbar { width: 4px; }
+.body::-webkit-scrollbar-thumb { background: #30363d; border-radius: 2px; }

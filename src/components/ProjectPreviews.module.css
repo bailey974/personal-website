@@ -1,0 +1,518 @@
+/* ── Shared ──────────────────────────────────────────────────────────────── */
+.pip {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── Collab Editor ───────────────────────────────────────────────────────── */
+.editor {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #0d1117;
+  border-radius: 6px;
+  overflow: hidden;
+  font-size: 12px;
+}
+
+.editorBar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: #161b22;
+  border-bottom: 1px solid #30363d;
+  flex-shrink: 0;
+}
+
+.editorLogo {
+  color: #58a6ff;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.editorTabs {
+  display: flex;
+  gap: 2px;
+  flex: 1;
+  overflow: hidden;
+}
+
+.editorTab {
+  background: none;
+  border: none;
+  color: #8b949e;
+  font-family: inherit;
+  font-size: 11px;
+  padding: 4px 10px;
+  cursor: pointer;
+  border-radius: 4px 4px 0 0;
+  transition: color 0.15s, background 0.15s;
+  white-space: nowrap;
+}
+
+.editorTab:hover { color: #c9d1d9; }
+
+.editorTabActive {
+  color: #c9d1d9 !important;
+  background: #0d1117;
+  border-bottom: 2px solid #58a6ff;
+}
+
+.onlinePips {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.onlineCount {
+  color: #8b949e;
+  font-size: 11px;
+  margin-left: 4px;
+  white-space: nowrap;
+}
+
+.editorBody {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.editorSide {
+  width: 130px;
+  background: #161b22;
+  border-right: 1px solid #30363d;
+  padding: 8px 0;
+  overflow-y: auto;
+  flex-shrink: 0;
+  font-size: 11px;
+}
+
+.sideSection {
+  color: #8b949e;
+  font-size: 10px;
+  letter-spacing: 0.6px;
+  padding: 4px 12px;
+  font-weight: 600;
+}
+
+.sideFile {
+  padding: 4px 12px;
+  color: #8b949e;
+  cursor: pointer;
+  transition: color 0.1s, background 0.1s;
+}
+
+.sideFile:hover { color: #c9d1d9; background: #1c2128; }
+
+.sideFileActive { color: #c9d1d9 !important; background: #1c2128; }
+
+.sideUser {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  color: #8b949e;
+  font-size: 11px;
+}
+
+.editorCode {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 0;
+}
+
+.codeLine {
+  display: flex;
+  align-items: center;
+  padding: 1px 0;
+  min-height: 20px;
+}
+
+.lineNum {
+  color: #30363d;
+  width: 36px;
+  text-align: right;
+  padding-right: 12px;
+  user-select: none;
+  flex-shrink: 0;
+  font-size: 11px;
+}
+
+.lineBody {
+  flex: 1;
+  white-space: pre;
+  overflow: hidden;
+}
+
+/* Token types */
+.tok_kw { color: #ff7b72; }
+.tok_cl { color: #ffa657; }
+.tok_fn { color: #d2a8ff; }
+.tok_cm { color: #8b949e; font-style: italic; }
+.tok_tx { color: #c9d1d9; }
+
+.cursorMarker {
+  display: inline-block;
+  width: 2px;
+  height: 14px;
+  border-radius: 1px;
+  vertical-align: text-bottom;
+  animation: cursorBlink 1s step-end infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.statusBar {
+  display: flex;
+  gap: 20px;
+  padding: 4px 12px;
+  background: #161b22;
+  border-top: 1px solid #30363d;
+  color: #8b949e;
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+/* ── Pizza Haven ─────────────────────────────────────────────────────────── */
+.pizza {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #0d1117;
+  border-radius: 6px;
+  overflow: hidden;
+  font-size: 12px;
+}
+
+.pizzaNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: #161b22;
+  border-bottom: 1px solid #30363d;
+  flex-shrink: 0;
+}
+
+.pizzaLogo {
+  font-weight: 600;
+  color: #ffa657;
+  font-size: 14px;
+}
+
+.cartBadge {
+  background: rgba(255, 166, 87, 0.15);
+  color: #ffa657;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.pizzaBody {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.pizzaMenu {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+  border-right: 1px solid #30363d;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pizzaMenuTitle {
+  color: #8b949e;
+  font-size: 10px;
+  letter-spacing: 0.6px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.pizzaItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  padding: 8px 10px;
+  transition: border-color 0.15s;
+}
+
+.pizzaItem:hover { border-color: #ffa657; }
+
+.pizzaEmoji { font-size: 20px; }
+
+.pizzaInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pizzaName { color: #c9d1d9; font-weight: 500; }
+.pizzaPrice { color: #3fb950; font-size: 11px; }
+
+.addBtn {
+  background: rgba(255, 166, 87, 0.1);
+  border: 1px solid rgba(255, 166, 87, 0.4);
+  color: #ffa657;
+  font-family: inherit;
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+
+.addBtn:hover { background: rgba(255, 166, 87, 0.2); }
+
+.pizzaCart {
+  width: 180px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+
+.emptyCart { color: #8b949e; font-size: 11px; margin-top: 4px; }
+
+.cartItem {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+}
+
+.cartName { color: #c9d1d9; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.cartQty {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #8b949e;
+}
+
+.qtyBtn {
+  background: none;
+  border: 1px solid #30363d;
+  color: #8b949e;
+  width: 18px;
+  height: 18px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.1s, color 0.1s;
+}
+
+.qtyBtn:hover { border-color: #ffa657; color: #ffa657; }
+
+.cartPrice { color: #3fb950; font-size: 11px; white-space: nowrap; }
+
+.cartDivider { border-top: 1px solid #30363d; margin: 4px 0; }
+
+.cartTotal {
+  display: flex;
+  justify-content: space-between;
+  color: #c9d1d9;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.orderBtn {
+  margin-top: 4px;
+  background: rgba(255, 166, 87, 0.1);
+  border: 1px solid #ffa657;
+  color: #ffa657;
+  font-family: inherit;
+  font-size: 12px;
+  padding: 7px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.15s;
+}
+
+.orderBtn:hover { background: rgba(255, 166, 87, 0.2); }
+
+/* ── Shell ───────────────────────────────────────────────────────────────── */
+.shell {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #0d1117;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.shellBody {
+  flex: 1;
+  padding: 14px 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 12px;
+}
+
+.shellLine {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.shellPrompt {
+  color: #3fb950;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.shellCmd { color: #58a6ff; }
+
+.shellOutput {
+  color: #c9d1d9;
+  padding-left: 4px;
+  margin-bottom: 6px;
+  white-space: pre-wrap;
+}
+
+.shellInput {
+  background: none;
+  border: none;
+  outline: none;
+  color: #58a6ff;
+  font-family: inherit;
+  font-size: 12px;
+  flex: 1;
+  caret-color: #3fb950;
+}
+
+.shellHint {
+  padding: 8px 16px;
+  background: #161b22;
+  border-top: 1px solid #30363d;
+  color: #8b949e;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+
+.shellHint code {
+  color: #58a6ff;
+  background: rgba(88, 166, 255, 0.1);
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+/* ── C auto compiler ─────────────────────────────────────────────────────── */
+.compiler {
+  display: flex;
+  height: 100%;
+  background: #0d1117;
+  border-radius: 6px;
+  overflow: hidden;
+  font-size: 12px;
+}
+
+.compilerPanel {
+  width: 160px;
+  padding: 14px 12px;
+  background: #161b22;
+  border-right: 1px solid #30363d;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.compilerLabel {
+  color: #8b949e;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.fileRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: #c9d1d9;
+}
+
+.checkbox {
+  accent-color: #3fb950;
+  width: 13px;
+  height: 13px;
+  cursor: pointer;
+}
+
+.fileName { font-size: 12px; }
+
+.compileBtn {
+  background: rgba(63, 185, 80, 0.1);
+  border: 1px solid #3fb950;
+  color: #3fb950;
+  font-family: inherit;
+  font-size: 12px;
+  padding: 7px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.15s;
+  margin-top: 4px;
+}
+
+.compileBtn:hover:not(:disabled) { background: rgba(63, 185, 80, 0.2); }
+.compileBtn:disabled { opacity: 0.4; cursor: default; }
+
+.runBtn {
+  background: rgba(88, 166, 255, 0.1);
+  border: 1px solid #58a6ff;
+  color: #58a6ff;
+  font-family: inherit;
+  font-size: 12px;
+  padding: 7px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.runBtn:hover { background: rgba(88, 166, 255, 0.2); }
+
+.compilerOutput {
+  flex: 1;
+  padding: 14px 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.outputPlaceholder { color: #30363d; font-style: italic; }
+.outputLine        { color: #c9d1d9; }
+.outputOk          { color: #3fb950; }
+.outputInfo        { color: #d29922; }
+.outputCmd         { color: #58a6ff; }

@@ -1,0 +1,44 @@
+.app {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.footer {
+  border-top: 1px solid transparent;
+  border-image: linear-gradient(90deg, var(--border), transparent 70%) 1;
+  padding: 24px 0;
+  margin-top: 80px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.termHint {
+  margin-left: auto;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.termHint:hover {
+  border-color: var(--green);
+  color: var(--green);
+  box-shadow: 0 0 12px -2px var(--glow-green);
+}
+
+.prompt {
+  color: var(--green);
+  font-weight: 600;
+}
+
+.muted {
+  color: var(--text-muted);
+}

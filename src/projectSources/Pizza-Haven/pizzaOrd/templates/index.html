@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}Pizza Haven - Welcome{% endblock %}
+
+{% block content %}
+  <style>
+    /* Hero Section Styles */
+    .hero {
+      background: url('/static/images/pizza-hero.jpg') no-repeat center center;
+      background-size: cover;
+      padding: 100px 20px;
+      color: #fff;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 1.2em;
+      margin-bottom: 30px;
+    }
+    .hero .btn {
+      padding: 15px 30px;
+      text-decoration: none;
+      color: #fff;
+      border-radius: 5px;
+      margin: 0 10px;
+      font-weight: bold;
+    }
+    .btn-primary {
+      background: #ff4500;
+    }
+    .btn-secondary {
+      background: #008080;
+    }
+
+    /* Features Section Styles */
+    .features {
+      padding: 50px 20px;
+      text-align: center;
+      background: #fff;
+    }
+    .features h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+    .features ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 auto;
+      max-width: 800px;
+    }
+    .features li {
+      font-size: 1.1em;
+      margin-bottom: 10px;
+    }
+
+    /* About Section Styles */
+    .about {
+      background: #f9f9f9;
+      padding: 50px 20px;
+      text-align: center;
+    }
+    .about h2 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+    .about p {
+      font-size: 1.1em;
+      margin: 0 auto;
+      max-width: 800px;
+      line-height: 1.6;
+    }
+  </style>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Welcome to Pizza Haven</h1>
+    <p>Delicious, handcrafted pizzas delivered hot and fresh to your door.</p>
+    <div>
+      <a href="{% url 'register' %}" class="btn btn-primary">Sign Up</a>
+      <a href="{% url 'custom_login' %}" class="btn btn-secondary">Log In</a>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <h2>Why Choose Pizza Haven?</h2>
+    <ul>
+      <li>Fresh, locally-sourced ingredients</li>
+      <li>Wide variety of toppings and gourmet recipes</li>
+      <li>Fast and reliable delivery service</li>
+      <li>Exclusive deals and discounts for members</li>
+    </ul>
+  </section>
+
+  <!-- About Section -->
+  <section class="about">
+    <h2>About Us</h2>
+    <p>
+      At Pizza Haven, we are passionate about pizza. Our mission is to bring you the best pizza experience—whether you dine in, take out, or have it delivered. We use only the freshest ingredients and a secret blend of spices to craft each pizza to perfection. Join us and taste the difference!
+    </p>
+  </section>
+{% endblock %}

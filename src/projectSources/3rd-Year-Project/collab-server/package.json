@@ -1,0 +1,11 @@
+{
+  "name": "collab-server",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "HOST=0.0.0.0 PORT=$PORT npx y-websocket"
+  },
+  "dependencies": {
+    "@y/websocket-server": "^0.1.2"
+  }
+}

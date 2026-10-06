@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Pizza Haven{% endblock %}
+
+{% block content %}
+  <style>
+    .home-container {
+      text-align: center;
+      padding: 20px;
+    }
+    .home-container h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .home-container p {
+      font-size: 1.1em;
+      color: #555;
+      margin-bottom: 20px;
+    }
+    .nav-links a {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      background: #ff4500;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    .nav-links a:hover {
+      background: #e03e00;
+    }
+  </style>
+  
+  <div class="home-container">
+    <h1>Welcome, {{ user.username }}!</h1>
+    <p>Your favorite pizzas, delivered fresh and hot. Order now to enjoy our delicious offerings!</p>
+    <div class="nav-links">
+      <a href="{% url 'select_option' %}">Order Pizza</a>
+      <a href="{% url 'my_orders' %}">My Orders</a>
+      <a href="{% url 'logout' %}">Logout</a>
+    </div>
+  </div>
+{% endblock %}

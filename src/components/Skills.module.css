@@ -1,0 +1,99 @@
+.section {
+  padding: 72px 0;
+  border-top: 1px solid transparent;
+  border-image: linear-gradient(90deg, var(--border), transparent 70%) 1;
+}
+
+.header {
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+  margin-bottom: 32px;
+}
+
+.green {
+  color: var(--green);
+  font-weight: 600;
+}
+
+.cmd {
+  color: var(--cyan);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 32px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.categoryLabel {
+  font-size: 13px;
+  letter-spacing: 0.3px;
+  margin-bottom: 4px;
+}
+
+.bracket {
+  color: var(--text-muted);
+}
+
+.key {
+  color: var(--yellow);
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(210, 153, 34, 0.15);
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 13px;
+}
+
+.skillName {
+  color: var(--text);
+  min-width: 110px;
+  flex-shrink: 0;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+}
+
+.filled {
+  color: var(--green);
+  text-shadow: 0 0 8px var(--glow-green);
+  /* start invisible, animate in when .filledAnimate is applied */
+  clip-path: inset(0 100% 0 0);
+  transition: none;
+}
+
+.filledAnimate {
+  clip-path: inset(0 0% 0 0);
+  transition: clip-path 0.8s ease;
+}
+
+.empty {
+  color: var(--border);
+}
+
+.pct {
+  color: var(--text-muted);
+  font-size: 11px;
+  min-width: 36px;
+}

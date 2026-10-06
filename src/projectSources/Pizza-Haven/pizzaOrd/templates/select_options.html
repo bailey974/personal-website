@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Build Your Pizza - Pizza Haven{% endblock %}
+
+{% block content %}
+  <style>
+    .order-form-container {
+      max-width: 600px;
+      margin: 40px auto;
+    }
+    .order-form-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    form p {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #333;
+    }
+    input[type="radio"],
+    input[type="checkbox"] {
+      margin-right: 8px;
+    }
+    .button-group {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .button-group button {
+      background: #5fcf80;
+      border: none;
+      color: #fff;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 5px;
+    }
+    .button-group button:hover {
+      background: #45a068;
+    }
+  </style>
+
+  <div class="order-form-container">
+    <h2>Build Your Pizza</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="button-group">
+        <button type="submit" name="add_another">Add Pizza</button>
+        <button type="submit" name="checkout">Proceed to Checkout</button>
+      </div>
+    </form>
+  </div>
+{% endblock %}

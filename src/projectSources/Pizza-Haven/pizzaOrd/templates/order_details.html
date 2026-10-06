@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block title %}Order Details - Pizza Haven{% endblock %}
+
+{% block extra_head %}
+  <!-- Include Mapbox GL CSS -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet" />
+  <style>
+    /* Additional styles for this page */
+    .order-summary {
+      margin-bottom: 20px;
+    }
+    .order-summary ul {
+      list-style: none;
+      padding: 0;
+    }
+    .order-summary li {
+      margin-bottom: 8px;
+    }
+    form label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #333;
+    }
+    form input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    form button {
+      background: #ff4500;
+      border: none;
+      color: white;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+    }
+    form button:hover {
+      background: #e03e00;
+    }
+    a.add-more {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      color: #ff4500;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    /* Map container styling */
+    #map {
+      height: 300px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <h1>Order Details</h1>
+
+  <div class="order-summary">
+    <h2>Pizzas in Your Order</h2>
+    {% if pizzas %}
+      <ul>
+        {% for pizza in pizzas %}
+          <li>
+            <strong>Size:</strong> {{ pizza.size|default:"Default Size" }},
+            <strong>Crust:</strong> {{ pizza.crust|default:"Default Crust" }},
+            <strong>Sauce:</strong> {{ pizza.sauce|default:"Default Sauce" }},
+            <strong>Cheese:</strong> {{ pizza.cheese|default:"Default Cheese" }}<br>
+            <strong>Toppings:</strong>
+            {% if pizza.toppings %}
+              {{ pizza.toppings|join:", " }}
+            {% else %}
+              No Toppings Selected
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No pizzas added yet.</p>
+    {% endif %}
+  </div>
+
+  <h2>Payment and Delivery Information</h2>
+  <form method="POST" id="order-form">
+    {% csrf_token %}
+    <label for="name">Name:</label>
+    <input type="text" name="name" value="{{ request.user.username }}" required>
+
+    <label for="address">Delivery Address (select on the map):</label>
+    <input type="text" id="address" name="address" placeholder="Click on the map to choose your address" readonly required>
+
+    <!-- Map container -->
+    <div id="map"></div>
+
+    <label for="card_number">Card Number:</label>
+    <input type="text" name="card_number" required>
+
+    <label for="expiry_date">Expiry Date (MM/YY):</label>
+    <input type="text" name="expiry_date" required>
+
+    <label for="cvv">CVV:</label>
+    <input type="text" name="cvv" required>
+
+    <button type="submit">Submit Order</button>
+  </form>
+
+  <a class="add-more" href="{% url 'select_option' %}">Add Another Pizza</a>
+
+  <!-- Include Mapbox GL JS -->
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+  <script>
+    // Set your Mapbox access token
+    mapboxgl.accessToken = 'pk.eyJ1Ijoic2NhbmxhYjUiLCJhIjoiY202emt2MDkxMDVtNTJuc2VxZjhuMXNnNCJ9.kFhKKL3KBWu7oltDgHyxjg';
+
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log("DOM fully loaded. Initializing Mapbox map.");
+      
+      // Initialize the map
+      var map = new mapboxgl.Map({
+        container: 'map', // Container ID
+        style: 'mapbox://styles/mapbox/streets-v11', // Map style to use
+        center: [-74.0060, 40.7128], // Starting position [lng, lat] (New York City)
+        zoom: 13 // Starting zoom level
+      });
+
+      // When the user clicks on the map, perform reverse geocoding
+      map.on('click', function(e) {
+        console.log("Map clicked at:", e.lngLat);
+        var lng = e.lngLat.lng;
+        var lat = e.lngLat.lat;
+        // Use Mapbox's reverse geocoding API
+        fetch('https://api.mapbox.com/geocoding/v5/mapbox.places/' + lng + ',' + lat + '.json?access_token=' + mapboxgl.accessToken + '&limit=1')
+          .then(response => response.json())
+          .then(data => {
+            console.log("Reverse geocoding data:", data);
+            if (data.features && data.features.length > 0) {
+              var address = data.features[0].place_name;
+              document.getElementById('address').value = address;
+            } else {
+              alert("No address found for this location.");
+            }
+          })
+          .catch(error => {
+            console.error("Error during reverse geocoding:", error);
+            alert("Failed to retrieve address. Please try again.");
+          });
+
+        // Add or move a marker
+        if (window.marker) {
+          window.marker.setLngLat(e.lngLat);
+        } else {
+          window.marker = new mapboxgl.Marker()
+            .setLngLat(e.lngLat)
+            .addTo(map);
+        }
+      });
+
+      // Prevent form submission if no address is selected.
+      document.getElementById('order-form').addEventListener('submit', function(e) {
+        var addressValue = document.getElementById('address').value;
+        if (!addressValue) {
+          e.preventDefault();
+          alert("Please select your delivery address from the map.");
+        }
+      });
+    });
+  </script>
+{% endblock %}

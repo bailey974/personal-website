@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Register - Pizza Haven{% endblock %}
+
+{% block content %}
+  <style>
+    .register-container {
+      max-width: 500px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .register-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .register-container form label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      display: block;
+      color: #333;
+    }
+    .register-container form input,
+    .register-container form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .register-container form button {
+      width: 100%;
+      padding: 12px;
+      background: #008080;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .register-container form button:hover {
+      background: #006666;
+    }
+    .register-container p {
+      text-align: center;
+      font-size: 0.9em;
+      margin-top: 10px;
+    }
+    .register-container p a {
+      color: #008080;
+      text-decoration: none;
+    }
+  </style>
+
+  <div class="register-container">
+    <h2>Register for Pizza Haven</h2>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required>
+  
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+  
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+  
+      <label for="bio">Bio:</label>
+      <textarea id="bio" name="bio"></textarea>
+  
+      <label for="phone_number">Phone Number:</label>
+      <input type="text" id="phone_number" name="phone_number">
+  
+      <button type="submit">Register</button>
+    </form>
+    <p>Already have an account? <a href="{% url 'custom_login' %}">Log In Here</a></p>
+  </div>
+{% endblock %}

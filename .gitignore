@@ -1,0 +1,10 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+
+# Local tooling / secrets — never commit
+CLAUDE.md
+.claude/
+.env
+.env.*

@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}My Order History - Pizza Haven{% endblock %}
+
+{% block content %}
+  <style>
+    .order-history-container {
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    .order-history-container h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+    }
+    .order-card {
+      background: #eef2f3;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .order-card h2 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+    .order-details p {
+      margin: 5px 0;
+      color: #555;
+    }
+    .order-details ul {
+      list-style-type: none;
+      padding-left: 0;
+      margin: 10px 0 0 0;
+    }
+    .order-details li {
+      margin-bottom: 5px;
+    }
+    .order-details ul ul {
+      margin-left: 20px;
+      margin-top: 5px;
+    }
+    .nav-links {
+      text-align: center;
+      margin-top: 30px;
+    }
+    .nav-links a {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      background: #ff4500;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    .nav-links a:hover {
+      background: #e03e00;
+    }
+  </style>
+
+  <div class="order-history-container">
+    <h1>My Order History</h1>
+    {% if orders %}
+      {% for order in orders %}
+        <div class="order-card">
+          <h2>Order #{{ order.id }}</h2>
+          <div class="order-details">
+            <p><strong>Submitted At:</strong> {{ order.submitted_at }}</p>
+            <p><strong>Delivery Address:</strong> {{ order.address }}</p>
+            <p><strong>Expected Delivery Time:</strong> 40 minutes</p>
+            <h3>Pizzas:</h3>
+            <ul>
+              {% for pizza in order.pizzas.all %}
+                <li>
+                  <strong>Size:</strong> {{ pizza.size.name }},
+                  <strong>Crust:</strong> {{ pizza.crust.name }},
+                  <strong>Sauce:</strong> {{ pizza.sauce.name }},
+                  <strong>Cheese:</strong> {{ pizza.cheese.name }}
+                  <br>
+                  <strong>Toppings:</strong>
+                  {% if pizza.toppings.all %}
+                    <ul>
+                      {% for topping in pizza.toppings.all %}
+                        <li>{{ topping.name }}</li>
+                      {% endfor %}
+                    </ul>
+                  {% else %}
+                    No Toppings Selected
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p style="text-align: center; color: #555;">You have no past orders.</p>
+    {% endif %}
+
+    <div class="nav-links">
+      <a href="{% url 'home' %}">Return to Home</a>
+      <a href="{% url 'select_option' %}">Order Pizza</a>
+    </div>
+  </div>
+{% endblock %}
