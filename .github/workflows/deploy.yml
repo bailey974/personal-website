@@ -27,12 +27,11 @@ jobs:
 
       - run: npm ci
 
-      # Project sites live at /<repo>/; a repo named <user>.github.io is served from /.
+      # Served from the custom domain root (baileyscanlan.com), so base is /.
       - name: Build
-        run: |
-          REPO="${{ github.event.repository.name }}"
-          if [[ "$REPO" == *.github.io ]]; then export BASE_PATH=/; else export BASE_PATH="/$REPO/"; fi
-          npm run build
+        run: npm run build
+        env:
+          BASE_PATH: /
 
       - uses: actions/upload-pages-artifact@v3
         with:
