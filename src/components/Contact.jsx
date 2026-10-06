@@ -1,14 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 import styles from './Contact.module.css'
 
-const EMAIL = 'bailey@example.com' // TODO: replace with your real email
+const EMAIL = 'bscanlan.scanlan8@gmail.com'
 
 const SOCIAL = [
   { label: 'email',    value: EMAIL,                                    href: `mailto:${EMAIL}`,                              copyable: true },
   { label: 'github',   value: 'github.com/bailey974',                   href: 'https://github.com/bailey974',                 copyable: false },
-  { label: 'linkedin', value: 'linkedin.com/in/bailey-scanlan-24b2321a9', href: 'https://linkedin.com/in/bailey-scanlan-24b2321a9', copyable: false },
-  { label: 'leetcode', value: 'leetcode.com/u/scanlab5',                href: 'https://leetcode.com/u/scanlab5',              copyable: false },
-]
+  { label: 'linkedin', value: 'linkedin.com/in/bailey-scanlan-24b2321a9', href: 'https://linkedin.com/in/bailey-scanlan-24b2321a9', copyable: false },]
 
 export default function Contact() {
   const [copied, setCopied]   = useState(false)

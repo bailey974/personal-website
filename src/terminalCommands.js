@@ -1,6 +1,8 @@
 // Shared command engine — used by both the Hero terminal and the Ctrl+K CliTerminal
 // so the two stay in sync instead of maintaining two copies of the same commands.
 
+import { SKILLS } from './skills'
+
 export const PROJECTS = ['3rd-Year-Project', 'Pizza-Haven', 'Shell', 'C_auto_compiler']
 
 export const SECTIONS = {
@@ -23,15 +25,11 @@ export const HELP_TEXT = [
   { t: 'cmd',  v: '  exit                — close terminal' },
 ]
 
-export const SKILLS_TEXT = [
-  { t: 'info', v: 'Languages:   Python █████████░ 90%  |  JavaScript ███████░░░ 75%' },
-  { t: 'info', v: '             C      ███████░░░ 70%  |  Java       ██████░░░░ 65%' },
-  { t: 'info', v: '             SQL    ███████░░░ 75%  |  Bash       ██████░░░░ 60%' },
-  { t: 'info', v: 'Frameworks:  Django ███████░░░ 75%  |  React      ███████░░░ 70%' },
-  { t: 'info', v: '             Flask  ██████░░░░ 60%  |  Node.js    █████░░░░░ 55%' },
-  { t: 'info', v: 'Tools:       Git    ████████░░ 85%  |  Docker     ██████░░░░ 60%' },
-  { t: 'info', v: '             Linux  ███████░░░ 70%  |  Postman    ██████░░░░ 65%' },
-]
+// `cat skills` output, grouped by proficiency, generated from src/skills.js
+export const SKILLS_TEXT = ['proficient', 'intermediate', 'familiar'].map(level => ({
+  t: level === 'proficient' ? 'grn' : 'info',
+  v: `${level.padEnd(13)} ${Object.values(SKILLS).flat().filter(s => s.level === level).map(s => s.name).join(', ')}`,
+}))
 
 export const EASTER_EGG = [
   { t: 'grn', v: '⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣠⣤⣤⣤⣤⣤⣶⣦⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀' },
@@ -61,9 +59,9 @@ export function runCommand(raw, onOpen) {
   if (cmd === 'whoami' || cmd === 'about') {
     return [
       { t: 'info', v: 'Bailey Scanlan' },
-      { t: 'info', v: 'Computer Science Student & Software Dev Intern' },
+      { t: 'info', v: 'Computer Science Student & Former Software Dev Intern' },
       { t: 'info', v: 'Dublin, Ireland' },
-      { t: 'info', v: 'github.com/bailey974  |  leetcode.com/u/scanlab5' },
+      { t: 'info', v: 'github.com/bailey974  |  bscanlan.scanlan8@gmail.com' },
     ]
   }
 

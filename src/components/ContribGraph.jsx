@@ -26,19 +26,26 @@ export default function ContribGraph() {
   const [status, setStatus] = useState('loading')
   const [visible, setVisible] = useState(false)
   const sectionRef = useRef(null)
+  const wrapRef    = useRef(null)
 
   useEffect(() => {
-    fetch('https://github-contributions-api.jogruber.de/v4/bailey974?y=last')
+    // Cache-bust per hour so browsers/CDNs never serve a stale day's data
+    const hour = new Date().toISOString().slice(0, 13)
+    fetch(`https://github-contributions-api.jogruber.de/v4/bailey974?y=last&t=${hour}`, { cache: 'no-store' })
       .then(r => r.ok ? r.json() : Promise.reject())
       .then(data => {
         // data.contributions = [{ date, count }, ...]
         const contribs = data.contributions ?? []
         setTotal(contribs.reduce((s, d) => s + d.count, 0))
 
+        // Pad the start so every column is a Sun→Sat week, as on GitHub
+        const firstDow = contribs.length ? new Date(contribs[0].date + 'T00:00:00Z').getUTCDay() : 0
+        const padded = [...Array(firstDow).fill(null), ...contribs]
+
         // Group into weeks (Sun-based columns of 7 days)
         const cols = []
         let col = []
-        for (const day of contribs) {
+        for (const day of padded) {
           col.push(day)
           if (col.length === 7) { cols.push(col); col = [] }
         }
@@ -48,6 +55,13 @@ export default function ContribGraph() {
       })
       .catch(() => setStatus('error'))
   }, [])
+
+  // Newest weeks are on the right — on narrow screens start scrolled there
+  useEffect(() => {
+    if (status === 'ok' && wrapRef.current) {
+      wrapRef.current.scrollLeft = wrapRef.current.scrollWidth
+    }
+  }, [status, weeks])
 
   // Fade in when scrolled into view
   useEffect(() => {
@@ -66,7 +80,9 @@ export default function ContribGraph() {
   if (weeks.length) {
     let lastMonth = -1
     weeks.forEach((col, wi) => {
-      const month = new Date(col[0]?.date).getMonth()
+      const first = col.find(Boolean)
+      if (!first) return
+      const month = new Date(first.date + 'T00:00:00Z').getUTCMonth()
       if (month !== lastMonth) {
         monthLabels.push({ wi, label: MONTHS[month] })
         lastMonth = month
@@ -100,7 +116,7 @@ export default function ContribGraph() {
       )}
 
       {status === 'ok' && (
-        <div className={styles.graphWrap}>
+        <div className={styles.graphWrap} ref={wrapRef}>
           {/* Month labels */}
           <div className={styles.monthRow}>
             {monthLabels.map(({ wi, label }) => (
@@ -118,7 +134,9 @@ export default function ContribGraph() {
           <div className={styles.grid}>
             {weeks.map((col, wi) => (
               <div key={wi} className={styles.col}>
-                {col.map((day) => (
+                {col.map((day, di) => day === null ? (
+                  <div key={`pad-${di}`} className={styles.cell} style={{ visibility: 'hidden' }} />
+                ) : (
                   <div
                     key={day.date}
                     className={styles.cell}

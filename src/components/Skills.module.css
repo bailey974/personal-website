@@ -55,45 +55,35 @@
   gap: 8px;
 }
 
+.list {
+  padding-left: 18px;
+}
+
 .item {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
+  align-items: baseline;
   font-size: 13px;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.itemVisible {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .skillName {
-  color: var(--text);
-  min-width: 110px;
+  color: var(--cyan);
+  min-width: 130px;
   flex-shrink: 0;
 }
 
-.bar {
-  display: flex;
-  align-items: center;
-  font-size: 12px;
+.level {
+  margin-left: 8px;
 }
 
-.filled {
-  color: var(--green);
-  text-shadow: 0 0 8px var(--glow-green);
-  /* start invisible, animate in when .filledAnimate is applied */
-  clip-path: inset(0 100% 0 0);
-  transition: none;
-}
-
-.filledAnimate {
-  clip-path: inset(0 0% 0 0);
-  transition: clip-path 0.8s ease;
-}
-
-.empty {
-  color: var(--border);
-}
-
-.pct {
-  color: var(--text-muted);
-  font-size: 11px;
-  min-width: 36px;
-}
+/* proficiency tiers */
+.proficient   { color: var(--green); text-shadow: 0 0 8px var(--glow-green); }
+.intermediate { color: var(--yellow); }
+.familiar     { color: var(--text-muted); }

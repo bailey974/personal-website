@@ -6,7 +6,7 @@ const LINES = [
   { prompt: '$', cmd: 'whoami', delay: 0 },
   { prompt: '',  cmd: 'bailey_scanlan', delay: 600, indent: true },
   { prompt: '$', cmd: 'cat role.txt', delay: 1200 },
-  { prompt: '',  cmd: 'Computer Science Student & Software Dev Intern', delay: 1800, indent: true },
+  { prompt: '',  cmd: 'Computer Science Student & Former Software Dev Intern', delay: 1800, indent: true },
   { prompt: '$', cmd: 'cat bio.txt', delay: 2400 },
   { prompt: '',  cmd: "Based in Dublin, Ireland. I build things — from\ncollaborative desktop apps to custom Unix shells.\nCurrently studying CS, shipping projects, and\nlevelling up every day.", delay: 3000, indent: true },
 ]
@@ -157,14 +157,6 @@ export default function Hero({ onOpenProject }) {
           className={styles.btn}
         >
           LinkedIn
-        </a>
-        <a
-          href="https://leetcode.com/u/scanlab5"
-          target="_blank"
-          rel="noreferrer"
-          className={styles.btn}
-        >
-          LeetCode
         </a>
         <a href="#contact" className={styles.btn}>
           Contact
